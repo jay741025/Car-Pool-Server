@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -25,10 +27,12 @@ import com.fet.carpool.serv.dto.CarEventDto;
 import com.fet.carpool.serv.dto.CarNearInfoDto;
 
 
-import com.fet.carpool.serv.persistence.Car;
+import com.fet.carpool.serv.persistence.CarFriends;
+import com.fet.carpool.serv.persistence.CarInfo;
 
 import com.fet.carpool.serv.service.AccountService;
 import com.fet.carpool.serv.service.CarEventService;
+import com.fet.carpool.serv.service.CarFriendsService;
 import com.fet.carpool.serv.service.CarService;
 
 
@@ -49,10 +53,11 @@ public class CarWs {
 	@Autowired
 	private CarService carServ;
 	@Autowired
-	private CarEventService carEventServ;
-	
+	private CarEventService carEventServ;	
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private CarFriendsService carFriendsService;
 	
 	protected Logger logger;
 	
@@ -102,12 +107,12 @@ public class CarWs {
 	@Path("getNearCar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Car> getNearCar(CarNearInfoDto car)
+	public List<CarInfo> getNearCar(CarNearInfoDto car)
 			throws UnsupportedEncodingException {
 
 		logger = Logger.getLogger(getClass());
 		logger.debug("getNearCar");	
-		List<Car> carList = carServ.getNearCar(car);	
+		List<CarInfo> carList = carServ.getNearCar(car);	
 		//List<Car> carList = carServ.list();	
 		return carList;
 	}
@@ -125,6 +130,30 @@ public class CarWs {
 		
 		return "OK";
 	}
+	
+	@POST
+	@Path("addCarFriends")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String addCarFriends(CarFriends carFriends)
+			throws UnsupportedEncodingException {
+
+		logger = Logger.getLogger(getClass());
+		logger.debug("addCarFriends");	
+		carFriendsService.addCarFriends(carFriends);		
+		return "OK";
+	}
+	
+	
+	
+	@GET
+    @Path("getCarFriends")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CarInfo> getCarFriends(@QueryParam("accountId") String accountId) {
+		logger = Logger.getLogger(getClass());
+		logger.debug("getCarFriends");	
+		return carFriendsService.findCarFriendsByAccountId(accountId);
+    }
 	
 	
 

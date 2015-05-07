@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.fet.carpool.serv.dao.BaseDao;
 import com.fet.carpool.serv.dao.CarEventDao;
 
-import com.fet.carpool.serv.persistence.Car;
+import com.fet.carpool.serv.persistence.CarInfo;
 import com.fet.carpool.serv.persistence.CarEvent;
 
 
@@ -47,7 +47,7 @@ public class CarEventDaoImpl extends BaseDao implements CarEventDao {
 		query.setResultTransformer(Transformers.aliasToBean(CarEvent.class));	
 		
 		@SuppressWarnings("unchecked")
-		List<Car> list = query.list();
+		List<CarInfo> list = query.list();
 		if( list == null || list.size() == 0 )
 			return false;
 		

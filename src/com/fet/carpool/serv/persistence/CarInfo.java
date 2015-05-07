@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CAR_INFO")
-public class Car {
+public class CarInfo {
 	
 	private int id ;
 	private String accountId;

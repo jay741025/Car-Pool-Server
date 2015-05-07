@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.fet.carpool.serv.dto.CarDto;
 import com.fet.carpool.serv.dto.CarNearInfoDto;
-import com.fet.carpool.serv.persistence.Car;
+import com.fet.carpool.serv.persistence.CarInfo;
 
 
 public interface CarService {
 
-    public List<Car> list();
+    public List<CarInfo> list();
     public void setCarInfo(CarDto car);
-    public List<Car> getNearCar(CarNearInfoDto car);
+    public List<CarInfo> getNearCar(CarNearInfoDto car);
     
 }

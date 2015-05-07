@@ -15,7 +15,7 @@ import com.fet.carpool.serv.dao.CarDao;
 import com.fet.carpool.serv.dto.CarDto;
 import com.fet.carpool.serv.dto.CarNearInfoDto;
 
-import com.fet.carpool.serv.persistence.Car;
+import com.fet.carpool.serv.persistence.CarInfo;
 
 import com.fet.carpool.serv.service.CarService;
 
@@ -30,14 +30,14 @@ public class CarServiceImpl implements CarService {
 
 
 	@Override
-	public List<Car> list() {		
+	public List<CarInfo> list() {		
 		return carDao.list();
 	}
 
 	@Override
 	public void setCarInfo(CarDto carDto) {	
 		
-		Car heaveCar = carDao.findCarByAccountId(carDto.getAccountId());	
+		CarInfo heaveCar = carDao.findCarByAccountId(carDto.getAccountId());	
 		try {
 			if(heaveCar != null ){		
 				
@@ -54,7 +54,7 @@ public class CarServiceImpl implements CarService {
 				}
 				carDao.updateCarInfo(heaveCar);			
 			}else{			
-				Car car = new Car();
+				CarInfo car = new CarInfo();
 				car.setAccountId(carDto.getAccountId());
 				car.setAccountName(URLDecoder.decode(carDto.getAccountName(), "UTF-8"));
 				car.setAccountPic(carDto.getAccountPic());
@@ -77,11 +77,11 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public List<Car> getNearCar(CarNearInfoDto carNearInfo) {
-		List<Car> carListDb =carDao.list() ;
-		List<Car> carList = new ArrayList<Car>();
+	public List<CarInfo> getNearCar(CarNearInfoDto carNearInfo) {
+		List<CarInfo> carListDb =carDao.list() ;
+		List<CarInfo> carList = new ArrayList<CarInfo>();
 		if(carListDb != null && carListDb.size() > 0){		
-			for(Car car :carListDb){
+			for(CarInfo car :carListDb){
 				if(!car.getAccountId().equals(carNearInfo.getAccountId())  && car.getStatus() > 0 ){
 					double d =Math.sqrt(Math.pow(Double.parseDouble(carNearInfo.getLatitude()) - Double.parseDouble(car.getLatitude()), 2) 
 							+ Math.pow(Double.parseDouble(carNearInfo.getLongitude()) - Double.parseDouble(carNearInfo.getLongitude()), 2));

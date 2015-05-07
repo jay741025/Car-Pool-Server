@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.fet.carpool.serv.dao.BaseDao;
 import com.fet.carpool.serv.dao.CarDao;
 
-import com.fet.carpool.serv.persistence.Car;
+import com.fet.carpool.serv.persistence.CarInfo;
 
 
 
@@ -24,11 +24,11 @@ public class CarDaoImpl extends BaseDao implements CarDao {
 
     @SuppressWarnings("unchecked")
 	@Override
-	public List<Car> list() {		
+	public List<CarInfo> list() {		
 		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
-				Car.class);
+				CarInfo.class);
         crit.add(Restrictions.eq("status", 1));
-        List<Car> result = crit.list();
+        List<CarInfo> result = crit.list();
         if( result.size() > 0 )
             return result;
         return null;
@@ -38,11 +38,12 @@ public class CarDaoImpl extends BaseDao implements CarDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Car findCarByAccountId(String accountId) {
+	public CarInfo findCarByAccountId(String accountId) {
 		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
-				Car.class);
+				CarInfo.class);
         crit.add(Restrictions.eq("accountId", accountId));
-        List<Car> result = crit.list();
+        List<CarInfo> result = crit.list();
+        
         if( result.size() > 0 )
             return result.get(0);
         return null;
@@ -51,14 +52,14 @@ public class CarDaoImpl extends BaseDao implements CarDao {
 
 
 	@Override
-	public void updateCarInfo(Car car) {
+	public void updateCarInfo(CarInfo car) {
 		sessionFactory.getCurrentSession().update(car);
 	}
 
 
 
 	@Override
-	public void addCarInfo(Car car) {
+	public void addCarInfo(CarInfo car) {
 		sessionFactory.getCurrentSession().save(car);
 	}
 

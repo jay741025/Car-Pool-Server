@@ -2,15 +2,15 @@ package com.fet.carpool.serv.dao;
 
 import java.util.List;
 
-import com.fet.carpool.serv.persistence.Car;
+import com.fet.carpool.serv.persistence.CarInfo;
 
 
 
 public interface CarDao {
 
-    public List<Car> list();   
-    public Car findCarByAccountId( String accountId);      
-    public void updateCarInfo(Car car);    
-    public void addCarInfo(Car car);
+    public List<CarInfo> list();   
+    public CarInfo findCarByAccountId( String accountId);      
+    public void updateCarInfo(CarInfo car);    
+    public void addCarInfo(CarInfo car);
     
 }
